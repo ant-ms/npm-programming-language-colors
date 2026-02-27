@@ -1,0 +1,46 @@
+{
+  "name": "programming-language-colors",
+  "version": "1.0.0",
+  "description": "Helpful packaging of github programming language color codes for use in js and ts projects",
+  "homepage": "https://github.com/ant-ms/npm-programming-language-colors#readme",
+  "bugs": {
+    "url": "https://github.com/ant-ms/npm-programming-language-colors/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ant-ms/npm-programming-language-colors.git"
+  },
+  "keywords": [
+    "github",
+    "linguist",
+    "programming-languages",
+    "language-colors",
+    "colors"
+  ],
+  "license": "MIT",
+  "author": "Yanik Ammann <yanik@ant.ms>",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.js --platform=node && tsc --emitDeclarationOnly",
+    "test": "tsx --test src/**/*.test.ts",
+    "gather": "tsx ./gather.ts",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.2",
+    "esbuild": "^0.27.3",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "yaml": "^2.8.2"
+  }
+}
