@@ -1,0 +1,59 @@
+name: Update Languages
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run gather
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet src/languages.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: |
+          BRANCH="chore/update-languages-$(date +%Y-%m-%d)"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+          git add src/languages.json
+          git commit -m "chore: update language colors from github-linguist"
+
+          npm version patch --no-git-tag-version
+          git add package.json package-lock.json
+          git commit -m "chore: bump version"
+
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: update language colors from github-linguist" \
+            --body "Automated update of \`src/languages.json\` from [github-linguist/linguist](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml)." \
+            --base main \
+            --head "$BRANCH"
