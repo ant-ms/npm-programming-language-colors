@@ -1,6 +1,6 @@
 {
   "name": "programming-language-colors",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Helpful packaging of github programming language color codes for use in js and ts projects",
   "homepage": "https://github.com/ant-ms/npm-programming-language-colors#readme",
   "bugs": {
