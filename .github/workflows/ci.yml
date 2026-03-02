@@ -26,7 +26,7 @@ jobs:
       - run: npm test
       - run: npm run build
 
-  publish:
+  publish-npm:
     needs: test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -43,3 +43,36 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm publish --provenance --access public
+
+  publish-jsr:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Generate jsr.json
+        run: |
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            const jsr = {
+              '\$schema': 'https://jsr.io/schema/config-file.v1.json',
+              name: '@ant-ms/programming-language-colors',
+              version: pkg.version,
+              license: 'MIT',
+              exports: './src/index.ts',
+              publish: {
+                include: ['src/**/*.ts', 'src/**/*.json', 'LICENSE', 'README.md', 'THIRD_PARTY_NOTICES'],
+                exclude: ['src/**/*.test.ts']
+              }
+            };
+            require('fs').writeFileSync('jsr.json', JSON.stringify(jsr, null, 2) + '\n');
+          "
+      - run: npx jsr publish

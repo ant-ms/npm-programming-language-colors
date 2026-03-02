@@ -1,17 +1,24 @@
 # programming-language-colors
 
-GitHub's programming language colors as an npm package. Data is sourced from [github-linguist/linguist](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) and updated automatically.
+GitHub's programming language colors as an npm and JSR package. Data is sourced from [github-linguist/linguist](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) and updated automatically.
 
 ## Installation
 
 ```sh
+# npm
 npm install programming-language-colors
+
+# JSR
+npx jsr add @ant-ms/programming-language-colors
+# or
+deno add jsr:@ant-ms/programming-language-colors
 ```
 
 ## Usage
 
 ```js
-import { getLanguageColor, LanguageColors } from "programming-language-colors";
+import { getLanguageColor, Colors } from "programming-language-colors";
+// or for JSR: import { getLanguageColor, Colors } from "@ant-ms/programming-language-colors";
 
 // Look up a single language color (case-insensitive)
 getLanguageColor("TypeScript"); // "#3178c6"
@@ -20,7 +27,7 @@ getLanguageColor("C++"); // "#f34b7d"
 getLanguageColor("not-real"); // undefined
 
 // Access the full color map directly
-console.log(LanguageColors);
+console.log(Colors);
 // { "typescript": "#3178c6", "python": "#3572A5", ... }
 ```
 
