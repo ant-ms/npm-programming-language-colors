@@ -43,12 +43,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git checkout -b "$BRANCH"
-          git add src/languages.json
-          git commit -m "chore: update language colors from github-linguist"
-
           npm version patch --no-git-tag-version
-          git add package.json package-lock.json
-          git commit -m "chore: bump version"
+          git add src/languages.json package.json package-lock.json
+          git commit -m "chore: update language colors from github-linguist"
 
           git push origin "$BRANCH"
 
