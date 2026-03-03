@@ -1,3 +1,5 @@
+[![NPM Version](https://img.shields.io/npm/v/programming-language-colors)](https://www.npmjs.com/package/programming-language-colors) [![JSR](https://jsr.io/badges/@ant-ms/programming-language-colors)](https://jsr.io/@ant-ms/programming-language-colors)
+
 # programming-language-colors
 
 GitHub's programming language colors as an npm and JSR package. Data is sourced from [github-linguist/linguist](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) and updated automatically.
