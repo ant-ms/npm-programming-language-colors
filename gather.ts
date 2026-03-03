@@ -5,6 +5,7 @@ type LanguagesYaml = Record<
   string,
   {
     color?: string;
+    aliases?: string[];
   }
 >;
 
@@ -37,6 +38,13 @@ const convertYamlToLanguageData = (
 
       if (color) {
         acc[lang.toLowerCase()] = color;
+
+        const aliases = yaml[lang].aliases;
+        if (aliases) {
+          for (const alias of aliases) {
+            acc[alias.toLowerCase()] = color;
+          }
+        }
       }
 
       return acc;

@@ -26,6 +26,11 @@ getLanguageColor("python"); // "#3572A5"
 getLanguageColor("C++"); // "#f34b7d"
 getLanguageColor("not-real"); // undefined
 
+// Aliases are also supported
+getLanguageColor("ts"); // "#3178c6"
+getLanguageColor("csharp"); // "#178600"
+getLanguageColor("golang"); // "#00ADD8"
+
 // Access the full color map directly
 console.log(Colors);
 // { "typescript": "#3178c6", "python": "#3572A5", ... }

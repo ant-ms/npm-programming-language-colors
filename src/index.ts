@@ -3,14 +3,16 @@ import LanguageData from "./languages.json" with { type: "json" };
 const { _disclaimer, ...LanguageColors } = LanguageData;
 
 /**
- * A record mapping programming language names to their hex color codes.
+ * A record mapping programming language names (and their aliases) to their hex color codes.
  *
- * Language names are case-sensitive and match the names used by GitHub Linguist.
+ * Language names are lowercase and match the names used by GitHub Linguist.
+ * Aliases (e.g. "csharp" for "C#", "golang" for "Go") are included as separate entries
+ * with the same color value.
  *
  * @example
  * ```ts
  * console.log(Colors);
- * // { "typescript": "#3178c6", "python": "#3572A5", ... }
+ * // { "typescript": "#3178c6", "python": "#3572A5", "ts": "#3178c6", ... }
  * ```
  */
 export const Colors: Record<string, string> = LanguageColors;
@@ -18,9 +20,10 @@ export const Colors: Record<string, string> = LanguageColors;
 /**
  * Get the color code for a programming language.
  *
- * Language lookup is case-insensitive.
+ * Language lookup is case-insensitive and supports aliases
+ * (e.g. "ts" for "TypeScript", "csharp" for "C#", ...).
  *
- * @param language - The name of the programming language
+ * @param language - The name or alias of the programming language
  * @returns The hex color code for the language, or `undefined` if not found
  *
  * @example

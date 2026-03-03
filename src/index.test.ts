@@ -15,6 +15,12 @@ describe("getLanguageColor", () => {
     assert.equal(getLanguageColor("F*"), "#572e30");
   });
 
+  it("returns the correct color for a language alias", () => {
+    assert.equal(getLanguageColor("ts"), "#3178c6");
+    assert.equal(getLanguageColor("csharp"), "#178600");
+    assert.equal(getLanguageColor("golang"), "#00ADD8");
+  });
+
   it("returns undefined for an unknown language", () => {
     assert.equal(getLanguageColor("NotARealLanguage"), undefined);
   });
