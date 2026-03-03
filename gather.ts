@@ -50,7 +50,7 @@ const convertedLanguages = convertYamlToLanguageData(rawLanguages);
 await fs
   .writeFile(
     "src/languages.json",
-    JSON.stringify({ _disclaimer: DISCLAIMER, ...convertedLanguages }),
+    JSON.stringify({ _disclaimer: DISCLAIMER, ...convertedLanguages }, null, 2),
   )
   .catch((err) => {
     console.error("Failed to write languages.json:", err);
