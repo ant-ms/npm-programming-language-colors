@@ -42,7 +42,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: npm publish --provenance --access public
+      - name: Publish if version is new
+        run: |
+          LOCAL=$(node -p "require('./package.json').version")
+          REMOTE=$(npm view programming-language-colors version 2>/dev/null || echo "0.0.0")
+          if [ "$LOCAL" != "$REMOTE" ]; then
+            npm publish --provenance --access public
+          else
+            echo "Version $LOCAL already published, skipping."
+          fi
 
   publish-jsr:
     needs: test
@@ -75,4 +83,12 @@ jobs:
             };
             require('fs').writeFileSync('jsr.json', JSON.stringify(jsr, null, 2) + '\n');
           "
-      - run: npx jsr publish
+      - name: Publish if version is new
+        run: |
+          LOCAL=$(node -p "require('./package.json').version")
+          REMOTE=$(curl -sf https://jsr.io/@ant-ms/programming-language-colors/meta.json | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')).latest" 2>/dev/null || echo "0.0.0")
+          if [ "$LOCAL" != "$REMOTE" ]; then
+            npx jsr publish
+          else
+            echo "Version $LOCAL already published, skipping."
+          fi
