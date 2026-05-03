@@ -40,7 +40,7 @@ console.log(Colors);
 
 ## Data Source
 
-Language color data is derived from the [`languages.yml`](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) file in the [github-linguist/linguist](https://github.com/github-linguist/linguist) repository. A daily automated check keeps the data in sync with upstream changes.
+Language color data is derived from the [`languages.yml`](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) file in the [github-linguist/linguist](https://github.com/github-linguist/linguist) repository. A weekly automated check keeps the data in sync with upstream changes.
 
 ## License
 
