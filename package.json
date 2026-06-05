@@ -28,7 +28,7 @@
     "THIRD_PARTY_NOTICES"
   ],
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.js --platform=node && tsc --emitDeclarationOnly",
+    "build": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.js --platform=node && tsc --project tsconfig.lib.json",
     "test": "tsx --test src/**/*.test.ts",
     "gather": "tsx ./gather.ts",
     "lint": "prettier --check .",
