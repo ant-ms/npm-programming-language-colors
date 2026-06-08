@@ -3,7 +3,9 @@ import { parse } from "yaml";
 import {
   COLOR_YAML_LOCATION,
   DISCLAIMER,
+  normalizeName,
   OUTPUT_PATH,
+  PROCESS_ALIASES,
   type LanguagesYaml,
 } from "./constants.js";
 
@@ -29,9 +31,10 @@ const convertYamlToLanguageData = (
   for (const [lang, { color, aliases }] of Object.entries(yaml)) {
     if (!color) continue;
 
-    result[lang.toLowerCase()] = color;
+    result[normalizeName(lang)] = color;
+    if (!PROCESS_ALIASES) continue;
     for (const alias of aliases ?? []) {
-      result[alias.toLowerCase()] = color;
+      result[normalizeName(alias)] = color;
     }
   }
 
