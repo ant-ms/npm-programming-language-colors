@@ -11,13 +11,13 @@ describe("getLanguageColor", () => {
 
   it("returns the correct color for languages with special characters in their name", () => {
     assert.equal(getLanguageColor("C++"), "#f34b7d");
-    assert.equal(getLanguageColor("C#"), "#178600");
+    assert.equal(getLanguageColor("C#"), "#7355dd");
     assert.equal(getLanguageColor("F*"), "#572e30");
   });
 
   it("returns the correct color for a language alias", () => {
     assert.equal(getLanguageColor("ts"), "#3178c6");
-    assert.equal(getLanguageColor("csharp"), "#178600");
+    assert.equal(getLanguageColor("csharp"), "#7355dd");
     assert.equal(getLanguageColor("golang"), "#00ADD8");
   });
 
